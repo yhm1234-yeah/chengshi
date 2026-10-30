@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #4c5df0;
+  --brand-ink: #2f3bad;
+  --teal: #12a38f;
+  --amber: #f59300;
+  --ink: #101828;
+  --bg: #f6f7fb;
+  --screen-bg: #04070f;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-feature-settings: 'tnum';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(76, 93, 240, 0.16);
+}
+
+/* 细滚动条 */
+.scroll-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(16, 24, 40, 0.14);
+  border-radius: 999px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-ink-200/70 bg-white shadow-soft;
+  }
+  .card-hover {
+    @apply transition duration-300 hover:-translate-y-0.5 hover:shadow-card;
+  }
+  .label {
+    @apply text-[11px] font-medium uppercase tracking-wider text-ink-400;
+  }
+  .h1 {
+    @apply text-[32px] font-semibold leading-tight tracking-tight text-ink-900;
+  }
+  .h2 {
+    @apply text-[22px] font-semibold leading-snug tracking-tight text-ink-900;
+  }
+  .h3 {
+    @apply text-[16px] font-semibold text-ink-800;
+  }
+  .muted {
+    @apply text-[13px] leading-relaxed text-ink-500;
+  }
+  .num {
+    @apply font-mono tabular-nums;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition active:scale-[.985] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand-500 text-white shadow-[0_8px_20px_rgba(76,93,240,.25)] hover:bg-brand-600;
+  }
+  .btn-ghost {
+    @apply btn border border-ink-200 bg-white text-ink-700 hover:border-ink-300 hover:bg-ink-50;
+  }
+  .btn-soft {
+    @apply btn bg-brand-50 text-brand-700 hover:bg-brand-100;
+  }
+  .btn-danger {
+    @apply btn bg-danger-500 text-white hover:bg-danger-600;
+  }
+  .field {
+    @apply w-full rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-800 outline-none transition placeholder:text-ink-400 focus:border-brand-400 focus:ring-4 focus:ring-brand-500/10;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium;
+  }
+  .divider {
+    @apply h-px w-full bg-ink-200/70;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .panel-dark {
+    @apply rounded-2xl border border-screen-line/70 bg-screen-panel/80 text-white;
+  }
+  .kpi-num {
+    @apply font-mono text-[34px] font-semibold leading-none tracking-tight text-ink-900;
+  }
+  .link-like {
+    @apply text-brand-600 underline-offset-4 hover:underline;
+  }
+}
+
+/* 移动端外壳（桌面演示时呈现 390×844 手机） */
+.phone-shell {
+  width: 390px;
+  height: 844px;
+  border-radius: 44px;
+  box-shadow:
+    0 0 0 12px #0c1017,
+    0 0 0 14px #222a3a,
+    0 40px 80px rgba(4, 7, 15, 0.35);
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+}
+.phone-notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 118px;
+  height: 30px;
+  border-radius: 999px;
+  background: #0c1017;
+  z-index: 40;
+}
+
+@media (max-width: 900px) {
+  .phone-shell {
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .phone-notch {
+    display: none;
+  }
+}
+
+/* 大屏背景网格 */
+.screen-grid {
+  background-image:
+    linear-gradient(rgba(54, 229, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(54, 229, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.screen-vignette {
+  background: radial-gradient(ellipse at 50% 0%, rgba(24, 48, 79, 0.55), transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(4, 7, 15, 0.9), transparent 60%);
+}
+
+/* 城市照片的扫描线 */
+.scan-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(54, 229, 255, 0.9), transparent);
+  box-shadow: 0 0 16px rgba(54, 229, 255, 0.8);
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 32s linear infinite;
+}
